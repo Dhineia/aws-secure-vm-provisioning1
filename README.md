@@ -32,6 +32,3 @@ This module focuses only on securing VM provisioning, not deploying the VMs or c
 - Promotes modular architecture
 - Ensures reusability across multiple VPCs/environments
 - Makes it easier to plug into larger infrastructure stacks
-
-Let me know if you'd like a badge section, usage instructions, or even a sample terraform plan output for that ✨ final polish. This is looking ready to showcase!
-
