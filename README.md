@@ -20,4 +20,18 @@ This project demonstrates how to securely provision infrastructure in AWS using 
 - Pushed clean and trackable code to GitHub with reusable logic
 ---
 
+🗂️ File Explanations
+![image](https://github.com/user-attachments/assets/e0e6c9db-2523-4d42-83f4-ceabc587bc25)
+
+
+
+---
+
+💡 Why No EC2 or VPC in main.tf?
+This module focuses only on securing VM provisioning, not deploying the VMs or creating the VPC itself. It assumes the VPC and EC2 exist or are created by another module. This approach:
+- Promotes modular architecture
+- Ensures reusability across multiple VPCs/environments
+- Makes it easier to plug into larger infrastructure stacks
+
+Let me know if you'd like a badge section, usage instructions, or even a sample terraform plan output for that ✨ final polish. This is looking ready to showcase!
 
