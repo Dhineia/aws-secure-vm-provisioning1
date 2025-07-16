@@ -18,3 +18,5 @@ variable "sg_name" {
   type        = string
   default     = "app-sg"
 }
+variable "vpc_cidr" {}
+variable "bastion_access_cidr" {}

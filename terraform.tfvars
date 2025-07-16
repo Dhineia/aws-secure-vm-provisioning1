@@ -1,3 +1,3 @@
-vpc_id           = "vpc-0dccfc29bcdf3abc0"
-bastion_sg_id    = "sg-090fec5a916747e49"
-app_subnet_cidr  = "10.0.2.0/24"
+vpc_cidr = "10.0.0.0/16"
+bastion_access_cidr = "203.0.113.0/24"
+app_subnet_cidr = "10.0.2.0/24"

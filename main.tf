@@ -1,32 +1,58 @@
-resource "aws_security_group" "app_sg" {
-  name        = var.sg_name
-  description = "Allow SSH from Bastion only + App traffic"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    description      = "SSH access from Bastion only"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    security_groups = [var.bastion_sg_id]
+# Provision VPC
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
+  tags = {
+    Name = "MainVPC"
   }
+}
+
+# Bastion Security Group - SSH Access
+resource "aws_security_group" "bastion_sg" {
+  name        = "bastion-sg"
+  description = "Allow SSH from trusted IPs"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "HTTP access"
-    from_port   = 80
-    to_port     = 80
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["10.0.2.0/24"]  # Only from App subnet or LB
+    cidr_blocks = [var.bastion_access_cidr]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]    # Allow all outbound traffic (typical for app tier)
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = var.sg_name
+    Name = "BastionSG"
   }
 }
+
+# App Security Group - HTTP Access from App Subnet
+resource "aws_security_group" "app_sg" {
+  name        = "app-sg"
+  description = "Allow HTTP from app subnet"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.app_subnet_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "AppSG"
+  }
+}
+
