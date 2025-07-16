@@ -27,8 +27,3 @@ This project demonstrates how to securely provision infrastructure in AWS using 
 
 ---
 
-💡 Why No EC2 or VPC in main.tf?
-This module focuses only on securing VM provisioning, not deploying the VMs or creating the VPC itself. It assumes the VPC and EC2 exist or are created by another module. This approach:
-- Promotes modular architecture
-- Ensures reusability across multiple VPCs/environments
-- Makes it easier to plug into larger infrastructure stacks
